@@ -5,21 +5,19 @@ function App() {
   const [respuesta, setRespuesta] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // Función que conecta con TU backend
   const enviarAGemini = async () => {
     if (!prompt) return;
     setLoading(true);
     setRespuesta(null);
 
     try {
-      // 1. Llamada a tu API Python
-      const response = await fetch('http://localhost:8000/test-gemini', {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const response = await fetch(`${apiUrl}/test-gemini`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ mensaje: prompt }),
       });
 
-      // 2. Procesar respuesta
       const data = await response.json();
       setRespuesta(data);
     } catch (error) {
@@ -34,13 +32,11 @@ function App() {
     <div className="min-h-screen bg-slate-900 text-white flex items-center justify-center p-4">
       <div className="max-w-xl w-full bg-slate-800 p-8 rounded-2xl shadow-2xl border border-slate-700">
         
-        {/* Encabezado */}
         <div className="mb-8 text-center">
           <h1 className="text-4xl font-bold text-blue-500 mb-2">ForgeVault 🛡️</h1>
           <p className="text-slate-400">Inventory AI System</p>
         </div>
 
-        {/* Input Area */}
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium mb-2 text-slate-300">
@@ -68,8 +64,7 @@ function App() {
           </button>
         </div>
 
-        {/* Área de Resultados */}
-        {respuesta && (
+      {respuesta && (
           <div className="mt-8 pt-6 border-t border-slate-700 animate-pulse-once">
             <h3 className="text-sm font-bold text-emerald-400 mb-3 uppercase tracking-wider">
               Respuesta del Sistema:
