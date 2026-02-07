@@ -1,0 +1,21 @@
+# --- PYTHON / BACKEND ---
+backend/venv/
+backend/__pycache__/
+*.pyc
+backend/.pytest_cache/
+
+# --- NODE / FRONTEND ---
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+
+# --- SECRETOS (CRÍTICO: NO BORRAR NUNCA) ---
+.env
+backend/.env
+serviceAccountKey.json
+backend/serviceAccountKey.json
+*.pem
+
+# --- SISTEMA ---
+.DS_Store
+Thumbs.db
