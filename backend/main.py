@@ -27,7 +27,12 @@ if not api_key:
 client = genai.Client(api_key=api_key)
 
 if not firebase_admin._apps:
-    cred = credentials.Certificate("serviceAccountKey.json")
+    cred_path = "serviceAccountKey.json"
+    
+    if os.path.exists("/etc/secrets/serviceAccountKey.json"):
+        cred_path = "/etc/secrets/serviceAccountKey.json"
+
+    cred = credentials.Certificate(cred_path)
     firebase_admin.initialize_app(cred)
 
 db = firestore.client()
