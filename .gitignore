@@ -1,15 +1,15 @@
-# --- PYTHON / BACKEND ---
+# --- BACKEND ---
 backend/venv/
 backend/__pycache__/
 *.pyc
 backend/.pytest_cache/
 
-# --- NODE / FRONTEND ---
+# --- FRONTEND ---
 frontend/node_modules/
 frontend/dist/
 frontend/.env.local
 
-# --- SECRETOS (CRÍTICO: NO BORRAR NUNCA) ---
+# --- SECRETOS ---
 .env
 backend/.env
 serviceAccountKey.json
