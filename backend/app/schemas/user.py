@@ -3,9 +3,9 @@ from typing import Optional
 from datetime import datetime
 
 class MacroSplit(BaseModel):
-    protein: float
-    carbs: float
-    fat: float
+    protein_grams: float
+    carbs_grams: float
+    fat_grams: float
 
 class UserBase(BaseModel):
     email: EmailStr
@@ -15,7 +15,7 @@ class UserBase(BaseModel):
     activity_level: float = Field(1.2, description="Factor actividad (1.2 - 2.0)")
     tdee_goal: Optional[float] = Field(None, description="Meta calórica diaria")
     monthly_budget: Optional[float] = Field(None, description="Presupuesto mensual líquido")
-    macro_split: MacroSplit = Field(default_factory=MacroSplit)
+    macro_split: Optional[MacroSplit] = None
 
 class UserCreate(UserBase):
     firebase_uid: str
@@ -31,6 +31,7 @@ class UserUpdate(UserBase):
 
 class UserResponse(UserBase):
     id: str = Field(..., alias="firebase_uid")
+    user_id: str
     created_at: datetime
     
     class Config:
