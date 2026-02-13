@@ -19,3 +19,4 @@ backend/serviceAccountKey.json
 # --- SISTEMA ---
 .DS_Store
 Thumbs.db
+.idx
