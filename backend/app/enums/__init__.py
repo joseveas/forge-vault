@@ -1,5 +1,12 @@
 from .finance import (
     TransactionCategory, 
     TransactionType, 
-    PaymentMethod
+    PaymentMethod,
+    FinancialHealthStatus
 )
+
+from .user import (
+    ActivityLevel,
+    GoalStrategy
+)
+

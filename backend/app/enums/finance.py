@@ -22,3 +22,8 @@ class PaymentMethod(str, Enum):
     DEBIT = "debit"
     CASH = "cash"
     TRANSFER = "transfer"
+
+class FinancialHealthStatus(str, Enum):
+    HEALTHY = "healthy"
+    WARNING = "warning"
+    CRITICAL = "critical"

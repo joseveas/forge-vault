@@ -3,28 +3,31 @@ from .user import (
     UserCreate, 
     UserUpdate, 
     UserResponse, 
-    MacroSplit
+    MacroSplit,
+    FixedExpenseTemplate,
+    FinanceConfig,
+    HealthConfig
 )
 
-# Finance
 from .finance import (
     TransactionBase, 
     TransactionCreate, 
     TransactionUpdate, 
-    TransactionResponse
+    TransactionResponse,
+    CategorySpending,
+    MonthlyDashboardResponse
 )
 
-# Nutrition
-from .nutrition import (
-    DailyLogBase, 
-    DailyLogCreate, 
-    DailyLogResponse, 
-    FoodItem
-)
-
-# Biometrics
-from .biometrics import (
+from .health import (
     BiometricsBase, 
     BiometricsCreate, 
-    BiometricsResponse
+    BiometricsUpdate, 
+    BiometricsResponse,
+    MacroStatus,
+    HealthDashboardResponse,
+    FoodItem,
+    DailyLogBase, 
+    DailyLogCreate, 
+    DailyLogUpdate, 
+    DailyLogResponse
 )

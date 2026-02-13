@@ -1,3 +1,3 @@
 from .config import settings
 from .database import db
-from .ai import ai_client
+from .security import get_current_user_uid

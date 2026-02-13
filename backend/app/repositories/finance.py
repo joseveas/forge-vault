@@ -1,6 +1,6 @@
 from typing import List
 from datetime import date
-from app.repositories.base import FirestoreRepository
+from app.repositories.repository import FirestoreRepository
 from app.schemas.finance import TransactionResponse, TransactionCreate, TransactionUpdate
 
 class FinanceRepository(FirestoreRepository[TransactionResponse, TransactionCreate, TransactionUpdate]):

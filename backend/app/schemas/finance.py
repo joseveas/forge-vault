@@ -1,7 +1,20 @@
 from pydantic import BaseModel, Field
-from datetime import date
-from typing import Optional
-from app.enums.finance import TransactionCategory, TransactionType, PaymentMethod
+from datetime import date, datetime
+from typing import Optional, List
+from app.enums.finance import TransactionCategory, TransactionType, PaymentMethod, FinancialHealthStatus
+
+class CategorySpending(BaseModel):
+    category: TransactionCategory
+    amount: float = Field(..., gt=0)
+    percentage: float = Field(..., gt=0)
+
+class MonthlyDashboardResponse(BaseModel):
+    current_month_total: float = Field(..., gt=0)
+    budget_status: FinancialHealthStatus
+    burn_rate_daily: float = Field(..., gt=0)
+    projected_savings: float
+    top_expenses: List[CategorySpending] = Field(..., min_items=0)
+    remaining_budget: float
 
 class TransactionBase(BaseModel):
     amount: float = Field(..., gt=0)
@@ -24,7 +37,7 @@ class TransactionUpdate(BaseModel):
 class TransactionResponse(TransactionBase):
     id: str
     user_id: str
-    created_at: Optional[date] = None
+    created_at: Optional[datetime] = None
 
     class Config:
         from_attributes = True

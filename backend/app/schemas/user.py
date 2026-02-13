@@ -1,13 +1,13 @@
 from pydantic import BaseModel, EmailStr, Field
 from typing import Optional
 from datetime import datetime
-from app.enums.finance import FinanceCategory
+from app.enums.finance import TransactionCategory
 from app.enums.user import ActivityLevel, GoalStrategy
 
 class FixedExpenseTemplate(BaseModel):
     name: str = Field(..., description="Ej: Arriendo, Netflix")
     amount: float = Field(..., gt=0)
-    category: FinanceCategory
+    category: TransactionCategory
 
 class MacroSplit(BaseModel):
     protein_grams: float
@@ -38,7 +38,7 @@ class UserBase(BaseModel):
 class UserCreate(UserBase):
     firebase_uid: str
 
-class UserUpdate(UserBase):
+class UserUpdate(BaseModel):
     full_name: Optional[str] = None
     age: Optional[int] = None
     finance: Optional[FinanceConfig] = None
