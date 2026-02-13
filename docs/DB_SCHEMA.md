@@ -2,17 +2,26 @@
 
 ```mermaid
 erDiagram
-    USER ||--o{ TRANSACTION : "registra"
-    USER ||--o{ FOOD_ENTRY : "consume"
-    USER ||--o{ BIOMETRICS : "mide"
+    %% RELACIONES
+    USER ||--o{ TRANSACTION : "registra (historial)"
+    USER ||--o{ BIOMETRICS : "mide (historial)"
+    USER ||--o{ FOOD_ENTRY : "consume (historial)"
     
+    %% ENTIDAD PRINCIPAL (Documento Firestore)
     USER {
         string uid PK "ID de Firebase Auth"
         string email
-        float tdee_goal "Meta Calorías"
-        object macro_split "JSON de Macros"
-        float monthly_budget "Presupuesto Líquido"
+        string full_name
+        int age
+        
+        %% CARPETA FINANZAS (Configuración Actual)
+        object finance "{ monthly_income, fixed_expenses[], monthly_budget }"
+        
+        %% CARPETA SALUD (Estado Actual)
+        object health "{ height_cm, current_weight, activity_level, tdee_goal, macro_split, current_body_fat, goal_strategy }"
     }
+
+    %% COLECCIONES HISTÓRICAS (Logs)
 
     TRANSACTION {
         string id PK

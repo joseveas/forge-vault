@@ -1,33 +1,48 @@
 from pydantic import BaseModel, EmailStr, Field
 from typing import Optional
 from datetime import datetime
+from app.enums.finance import FinanceCategory
+from app.enums.user import ActivityLevel, GoalStrategy
+
+class FixedExpenseTemplate(BaseModel):
+    name: str = Field(..., description="Ej: Arriendo, Netflix")
+    amount: float = Field(..., gt=0)
+    category: FinanceCategory
 
 class MacroSplit(BaseModel):
     protein_grams: float
     carbs_grams: float
     fat_grams: float
 
+class FinanceConfig(BaseModel):
+    monthly_income: Optional[float] = Field(None, description="Sueldo Líquido")
+    fixed_expenses: List[FixedExpenseTemplate] = []
+    monthly_budget: Optional[float] = Field(None, description="Disponible Calculado")
+
+class HealthConfig(BaseModel):
+    height_cm: float = Field(..., gt=0)
+    current_weight: Optional[float] = None
+    current_body_fat: Optional[float] = None
+    activity_level: ActivityLevel = ActivityLevel.SEDENTARY
+    goal_strategy: GoalStrategy = GoalStrategy.AGGRESSIVE_CUT 
+    tdee_goal: Optional[float] = None
+    macro_split: Optional[MacroSplit] = None
+
 class UserBase(BaseModel):
     email: EmailStr
     full_name: Optional[str] = None
-    height_cm: float = Field(..., gt=0, description="Altura en cm")
     age: int = Field(..., gt=0)
-    activity_level: float = Field(1.2, description="Factor actividad (1.2 - 2.0)")
-    tdee_goal: Optional[float] = Field(None, description="Meta calórica diaria")
-    monthly_budget: Optional[float] = Field(None, description="Presupuesto mensual líquido")
-    macro_split: Optional[MacroSplit] = None
+    finance: FinanceConfig = Field(default_factory=FinanceConfig)
+    health: HealthConfig
 
 class UserCreate(UserBase):
     firebase_uid: str
 
 class UserUpdate(UserBase):
     full_name: Optional[str] = None
-    height_cm: Optional[float] = None
     age: Optional[int] = None
-    activity_level: Optional[float] = None
-    tdee_goal: Optional[float] = None
-    monthly_budget: Optional[float] = None
-    macro_split: Optional[MacroSplit] = None
+    finance: Optional[FinanceConfig] = None
+    health: Optional[HealthConfig] = None
 
 class UserResponse(UserBase):
     id: str = Field(..., alias="firebase_uid")
